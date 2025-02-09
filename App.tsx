@@ -1,0 +1,63 @@
+import React from 'react';
+import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import ReadingSection from './screens/ReadingSection';
+import ListeningSection from './screens/ListeningSection';
+
+const Tab = createBottomTabNavigator();
+
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Reading"
+        screenOptions={{
+          tabBarStyle: styles.tabBar,
+          headerShown: false,
+        }}
+      >
+        <Tab.Screen
+          name="Reading"
+          component={ReadingSection}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="book" color={color} size={24} />
+            ),
+            tabBarLabel: "Reading",
+          }}
+        />
+        <Tab.Screen
+          name="Listening"
+          component={ListeningSection}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="headset" color={color} size={24} />
+            ),
+            tabBarLabel: "Listening",
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  sectionText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  tabBar: {
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+});
