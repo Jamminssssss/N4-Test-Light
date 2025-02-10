@@ -172,12 +172,92 @@ const questions = [
     {
       question:'(  )に なにを いれますか。\n\nわたしには、しょうらい かしゅに なると いう ( ）が あります。',
       options: [
-        { id: 1, text: 'けしき' },
-        { id: 2, text: 'ゆめ' },
-        { id: 3, text: 'おもいで' },
+        { id: 1, text: 'けしき'},
+        { id: 2, text: 'ゆめ'},
+        { id: 3, text: 'おもいで'},
         { id: 4, text: 'せわ' },
       ],
       correctAnswer: 2,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nリーさんも こんどの パーティーに ( ）来て くださいね。',
+      options: [
+        { id: 1, text: 'ひじょうに'},
+        { id: 2, text: 'ぜひ'},
+        { id: 3, text: 'じゅうぶん'},
+        { id: 4, text: 'いつも' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nこれから きかいの つかいかたを (  ) しますから、よく 聞いてください。',
+      options: [
+        { id: 1, text: 'じゅんび' },
+        { id: 2, text: 'りよう' },
+        { id: 3, text: 'せつめい' },
+        { id: 4, text: 'せいさん' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nはが わるいので、 (  ) ものは 食べられません。',
+      options: [
+        { id: 1, text: 'きびしい' },
+        { id: 2, text: 'かたい' },
+        { id: 3, text: 'はやい' },
+        { id: 4, text: 'ふかい' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nもりさんを デートに (  ) が、行けないと 言われました。',
+      options: [
+        { id: 1, text: 'さそいました' },
+        { id: 2, text: 'つたえました' },
+        { id: 3, text: 'あんないしました' },
+        { id: 4, text: 'しょうかいしました' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nわたしの むすこは、1年で 5 (  ) くらい せが 高く なりました。',
+      options: [
+        { id: 1, text: 'グラム' },
+        { id: 2, text: 'ばん' },
+        { id: 3, text: 'けん' },
+        { id: 4, text: 'センチ' },
+      ],
+      correctAnswer: 4,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nお店で 3だいの パソコンを (  )、いちばん かるい パソコンを えらびました。',
+      options: [
+        { id: 1, text: 'かたづけて' },
+        { id: 2, text: 'かぞえて' },
+        { id: 3, text: 'くらべて' },
+        { id: 4, text: 'はらって' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nたなかさんの いえの 電気が ついて いませんね。たなかさんは (  ) の ようです。',
+      options: [
+        { id: 1, text: 'うそ' },
+        { id: 2, text: 'じゆう' },
+        { id: 3, text: 'ちゅうし' },
+        { id: 4, text: 'るす' },
+      ],
+      correctAnswer: 4,
+    },
+    {
+      question:'(  )に なにを いれますか。\n\nへやの かぎを さがして いますが、まだ (  )。',
+      options: [
+        { id: 1, text: '見つかりません' },
+        { id: 2, text: 'つかまえません' },
+        { id: 3, text: 'しりません' },
+        { id: 4, text: 'さわりません' },
+      ],
+      correctAnswer: 1,
     },
 ];
   
