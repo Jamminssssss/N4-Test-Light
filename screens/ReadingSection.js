@@ -207,10 +207,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   questionScroll: {
-    maxHeight: 380,
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
+    flexShrink: 1,
   },
   question: {
     fontSize: 20,
