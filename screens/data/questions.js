@@ -639,6 +639,72 @@ const questions = [
       ],
       correctAnswer: 4,
     },
+    {
+      question:'「なぜ「どうしよう。」と思いましたか。',
+      image: require('../../assets/readingimages/readingimage1.png'),
+      options: [
+        { id: 1, text: '友達が見つからないから' },
+        { id: 2, text: '間違えて東京駅で電車を降りてしまったから' },
+        { id: 3, text: '乗りたい電車の場所がわからないから' },
+        { id: 4, text: '知らない女の人に声をかけられたから' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question:'なぜ山田さんは「私」に声をかけましたか。',
+      image: require('../../assets/readingimages/readingimage1.png'),
+      options: [
+        { id: 1, text: '「私」が行ったり来たりしているのを見たから' },
+        { id: 2, text: '「私」と一緒にお茶を飲みたいと思ったから' },
+        { id: 3, text: '「私」を山田さんの友達と間違えたから' },
+        { id: 4, text: '「私」が落としたメモを拾ったから' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question:'なぜお礼を言いましたか。',
+      image: require('../../assets/readingimages/readingimage1.png'),
+      options: [
+        { id: 1, text: '山田さんが、京都に行く新幹線がたくさんあると「私」に教えてくれたから' },
+        { id: 2, text: '「山田さんが、帰りが遅くなるかもしれないのに、 「私」を案内してくれたから' },
+        { id: 3, text: '山田さんが、「私」が乗る予定の電車の時間のことを心配してくれたから' },
+        { id: 4, text: '「山田さんが、「私」の国のいろいろな人に親切にしてくれたと聞いたから' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question:'（ ）に入れるのに、いちばんいい文はどれですか。',
+      image: require('../../assets/readingimages/readingimage1.png'),
+      options: [
+        { id: 1, text: '仕事を頑張ろう' },
+        { id: 2, text: '外国に住んでみたい' },
+        { id: 3, text: '困っている人に親切にしよう' },
+        { id: 4, text: '東京駅のことをよく知りたい' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question:'ハメスさんとマリアさんは、「春を楽しもう」に行きたいと思っています。\n4月に行われるもので、お店の中で音楽を聞きながら、お昼に食事ができる\nものがいいです。ハメスさんたちが選べるのは、どれですか。',
+      image: require('../../assets/readingimages/readingimage2.png'),
+      options: [
+        { id: 1, text: '②' },
+        { id: 2, text: '③' },
+        { id: 3, text: '⑤' },
+        { id: 4, text: '⑥' },
+      ],
+      correctAnswer: 4,
+    },
+    {
+      question:'ジーナさんは、「春を楽しもう」に行こうと思っています。土曜日に行きたい\nですが、集まる時間が13時より早いものには行けません。料金は1,000円以下が\nいいです。ジーナさんが選べるのは、どれですか。',
+      image: require('../../assets/readingimages/readingimage2.png'),
+      options: [
+        { id: 1, text: '②と③' },
+        { id: 2, text: '②と③と④' },
+        { id: 3, text: '②と③と⑤' },
+        { id: 4, text: '③と⑤' },
+      ],
+      correctAnswer: 1,
+    },
 ];
   
 export default questions;

@@ -1,7 +1,17 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TouchableOpacity, 
+  StyleSheet, 
+  ScrollView, 
+  Image,
+  Modal,
+  Dimensions
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SQLite from 'react-native-sqlite-storage';
+import ImageZoom from 'react-native-image-pan-zoom';  // You'll need to install this package
 import questions from './data/questions';  // Import questions
 
 SQLite.enablePromise(true);
@@ -12,8 +22,12 @@ export default function ReadingSection({ navigation }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showNextButton, setShowNextButton] = useState(false);
   const [db, setDb] = useState(null);  // State for database instance
+  const [showImageModal, setShowImageModal] = useState(false);
+
 
   const currentQuestion = questions[currentQuestionIndex];
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
   // Initialize SQLite database and load progress
   useEffect(() => {
@@ -123,6 +137,47 @@ export default function ReadingSection({ navigation }) {
     }
   }, [navigation, showQuiz]);
 
+ 
+  //줌인 기능 
+  const ImageModal = () => (
+    <Modal
+      transparent={true}
+      visible={showImageModal}
+      onRequestClose={() => setShowImageModal(false)}
+    >
+      <View style={styles.modalContainer}>
+        <TouchableOpacity
+          style={styles.modalCloseButton}
+          onPress={() => setShowImageModal(false)}
+        >
+          <Ionicons name="close-outline" size={30} color="white" />
+        </TouchableOpacity>
+        
+        <ImageZoom
+          cropWidth={windowWidth}
+          cropHeight={windowHeight}
+          imageWidth={windowWidth}
+          imageHeight={windowHeight * 0.7}
+        >
+          <Image
+            source={currentQuestion.image}
+            style={styles.modalImage}
+            resizeMode="contain"
+          />
+        </ImageZoom>
+
+        {currentQuestion.explanation && (
+          <View style={styles.explanationContainer}>
+            <Text style={styles.explanationText}>
+              {currentQuestion.explanation}
+            </Text>
+          </View>
+        )}
+      </View>
+    </Modal>
+  );
+
+
   // Show quiz or button to start quiz
   if (!showQuiz) {
     return (
@@ -147,16 +202,18 @@ export default function ReadingSection({ navigation }) {
         <View style={styles.questionContainer}>
           <ScrollView
             style={styles.questionScroll}
-            nestedScrollEnabled={true} // Prevent conflicts with parent ScrollView
+            nestedScrollEnabled={true}
           >
             <Text style={styles.question}>
               {currentQuestion.question}
             </Text>
             {currentQuestion.image && (
-              <Image
-                source={currentQuestion.image}
-                style={styles.questionImage}
-              />
+              <TouchableOpacity onPress={() => setShowImageModal(true)}>
+                <Image
+                  source={currentQuestion.image}
+                  style={styles.questionImage}
+                />
+              </TouchableOpacity>
             )}
           </ScrollView>
         </View>
@@ -189,6 +246,7 @@ export default function ReadingSection({ navigation }) {
           )}
         </View>
       </ScrollView>
+      <ImageModal />
     </View>
   );
 }
@@ -278,5 +336,48 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     fontWeight: 'bold',
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalCloseButton: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+    zIndex: 2,
+    padding: 10,
+  },
+  modalImage: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.7,
+  },
+  explanationContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  },
+  explanationText: {
+    fontSize: 16,
+    color: 'black',
+  },
+  zoomHintContainer: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 5,
+    borderRadius: 5,
+  },
+  zoomHintText: {
+    marginLeft: 5,
+    fontSize: 12,
+    color: 'black',
   },
 });
