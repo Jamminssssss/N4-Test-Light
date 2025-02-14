@@ -5,6 +5,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReadingSection from './screens/ReadingSection';
 import ListeningSection from './screens/ListeningSection';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs(true); // 모든 경고 메시지 숨김
+
 
 const Tab = createBottomTabNavigator();
 

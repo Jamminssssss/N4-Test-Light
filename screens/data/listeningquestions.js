@@ -59,6 +59,130 @@ const listeningQuestions = [
       ],
       correctAnswer: 3,
     },
+    {
+      question: '6 ばん',
+      image: require('../../assets/readingimages/audioimages/audioimage6.png'),
+      audio: 'n4q6.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+        { id: 4, text: '4' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: '7 ばん',
+      audio: 'n4q7.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: 'えき前の ほんや' },
+        { id: 2, text: '大学の 中の ほんや' },
+        { id: 3, text: 'じむしょ' },
+        { id: 4, text: 'しょくどうの 前' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: '8 ばん',
+      image: require('../../assets/readingimages/audioimages/audioimage7.png'),
+      audio: 'n4q8.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: 'アイ' },
+        { id: 2, text: 'アウ' },
+        { id: 3, text: 'イウ' },
+        { id: 4, text: 'イ' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question: '1 ばん',
+      audio: 'n4q9.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: 'うみの ちかくで しょくじした' },
+        { id: 2, text: '山に のぼった' },
+        { id: 3, text: 'うみで およいだ' },
+        { id: 4, text: 'かいがんを さんぽした' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question: '2 ばん',
+      audio: 'n4q10.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: 'ジュース' },
+        { id: 2, text: 'アイスクリーム' },
+        { id: 3, text: 'キャンディー' },
+        { id: 4, text: 'クッキー' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '3 ばん',
+      audio: 'n4q11.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '山本さんが きょうしつに いるとき' },
+        { id: 2, text: '山本さんが きょうしつを 出たとき' },
+        { id: 3, text: '山本さんが きょうしつを 出たとき' },
+        { id: 4, text: '山本さんが としょかんを 出たとき' },
+      ],
+      correctAnswer: 4,
+    },
+    {
+      question: '4 ばん',
+      audio: 'n4q12.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: 'あく 時間が はやく なる' },
+        { id: 2, text: 'しまる 時間が おそく なる' },
+        { id: 3, text: '中学生いかは ただに なる' },
+        { id: 4, text: 'チケットが 安く なる' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '5 ばん',
+      audio: 'n4q13.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: 'いろいろな ばしょに おいて あること' },
+        { id: 2, text: 'うって いる ものの しゅるいが 多いこと' },
+        { id: 3, text: 'ことばを 話すこと' },
+        { id: 4, text: 'お金が ぬすまれないこと' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '6 ばん',
+      audio: 'n4q14.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '5 時から 5 時半まで' },
+        { id: 2, text: '5 時から 6 時まで' },
+        { id: 3, text: '5 時半から 6 時まで' },
+        { id: 4, text: '5 時半から 6 時半まで' },
+      ],
+      correctAnswer: 4,
+    },
+    {
+      question: '7 ばん',
+      audio: 'n4q15.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '食べものの 店が たくさん あるから' },
+        { id: 2, text: 'まつりが あって にぎやかだから' },
+        { id: 3, text: 'ふねの 上で さくらが 見られるから' },
+        { id: 4, text: '会社から あるいて 行けるから' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: '1 ばん',
+      image: require('../../assets/readingimages/audioimages/audioimage8.png'),
+      audio: 'n4q16.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '食べものの 店が たくさん あるから' },
+        { id: 2, text: 'まつりが あって にぎやかだから' },
+        { id: 3, text: 'ふねの 上で さくらが 見られるから' },
+        { id: 4, text: '会社から あるいて 行けるから' },
+      ],
+      correctAnswer: 3,
+    },
 ];
   
 export default listeningQuestions;
