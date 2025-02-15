@@ -641,7 +641,7 @@ const questions = [
     },
     {
       question:'「なぜ「どうしよう。」と思いましたか。',
-      image: require('../../assets/readingimages/readingimage1.png'),
+      image: require('../assets/readingimages/readingimage1.png'),
       options: [
         { id: 1, text: '友達が見つからないから' },
         { id: 2, text: '間違えて東京駅で電車を降りてしまったから' },
@@ -652,7 +652,7 @@ const questions = [
     },
     {
       question:'なぜ山田さんは「私」に声をかけましたか。',
-      image: require('../../assets/readingimages/readingimage1.png'),
+      image: require('../assets/readingimages/readingimage1.png'),
       options: [
         { id: 1, text: '「私」が行ったり来たりしているのを見たから' },
         { id: 2, text: '「私」と一緒にお茶を飲みたいと思ったから' },
@@ -663,7 +663,7 @@ const questions = [
     },
     {
       question:'なぜお礼を言いましたか。',
-      image: require('../../assets/readingimages/readingimage1.png'),
+      image: require('../assets/readingimages/readingimage1.png'),
       options: [
         { id: 1, text: '山田さんが、京都に行く新幹線がたくさんあると「私」に教えてくれたから' },
         { id: 2, text: '「山田さんが、帰りが遅くなるかもしれないのに、 「私」を案内してくれたから' },
@@ -674,7 +674,7 @@ const questions = [
     },
     {
       question:'（ ）に入れるのに、いちばんいい文はどれですか。',
-      image: require('../../assets/readingimages/readingimage1.png'),
+      image: require('../assets/readingimages/readingimage1.png'),
       options: [
         { id: 1, text: '仕事を頑張ろう' },
         { id: 2, text: '外国に住んでみたい' },
@@ -685,7 +685,7 @@ const questions = [
     },
     {
       question:'ハメスさんとマリアさんは、「春を楽しもう」に行きたいと思っています。\n4月に行われるもので、お店の中で音楽を聞きながら、お昼に食事ができる\nものがいいです。ハメスさんたちが選べるのは、どれですか。',
-      image: require('../../assets/readingimages/readingimage2.png'),
+      image: require('../assets/readingimages/readingimage2.png'),
       options: [
         { id: 1, text: '②' },
         { id: 2, text: '③' },
@@ -696,7 +696,7 @@ const questions = [
     },
     {
       question:'ジーナさんは、「春を楽しもう」に行こうと思っています。土曜日に行きたい\nですが、集まる時間が13時より早いものには行けません。料金は1,000円以下が\nいいです。ジーナさんが選べるのは、どれですか。',
-      image: require('../../assets/readingimages/readingimage2.png'),
+      image: require('../assets/readingimages/readingimage2.png'),
       options: [
         { id: 1, text: '②と③' },
         { id: 2, text: '②と③と④' },

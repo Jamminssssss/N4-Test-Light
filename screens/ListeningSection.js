@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'rea
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
 import SQLite from 'react-native-sqlite-storage';
-import questions from './data/listeningquestions';
+import questions from '../data/listeningquestions';
 
 
 Sound.setCategory('Playback');

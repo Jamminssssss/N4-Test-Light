@@ -12,7 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SQLite from 'react-native-sqlite-storage';
 import ImageZoom from 'react-native-image-pan-zoom';  // You'll need to install this package
-import questions from './data/questions';  // Import questions
+import questions from '../data/questions';  // Import questions
 
 SQLite.enablePromise(true);
 

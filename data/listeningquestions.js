@@ -1,7 +1,7 @@
 const listeningQuestions = [
     {
       question: '1 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage1.png'),
+      image: require('../assets/audioimages/audioimage1.png'),
       audio: 'n4q1.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: 'アウ' },
@@ -13,7 +13,7 @@ const listeningQuestions = [
     },
     {
       question: '2 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage2.png'),
+      image: require('../assets/audioimages/audioimage2.png'),
       audio: 'n4q2.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: '1' },
@@ -25,7 +25,7 @@ const listeningQuestions = [
     },
     {
       question: '3 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage3.png'),
+      image: require('../assets/audioimages/audioimage3.png'),
       audio: 'n4q3.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: '1' },
@@ -37,7 +37,7 @@ const listeningQuestions = [
     },
     {
       question: '4 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage4.png'),
+      image: require('../assets/audioimages/audioimage4.png'),
       audio: 'n4q4.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: 'アイウエ' },
@@ -49,7 +49,7 @@ const listeningQuestions = [
     },
     {
       question: '5 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage5.png'),
+      image: require('../assets/audioimages/audioimage5.png'),
       audio: 'n4q5.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: '1' },
@@ -61,7 +61,7 @@ const listeningQuestions = [
     },
     {
       question: '6 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage6.png'),
+      image: require('../assets/audioimages/audioimage6.png'),
       audio: 'n4q6.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: '1' },
@@ -84,7 +84,7 @@ const listeningQuestions = [
     },
     {
       question: '8 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage7.png'),
+      image: require('../assets/audioimages/audioimage7.png'),
       audio: 'n4q8.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: 'アイ' },
@@ -173,15 +173,138 @@ const listeningQuestions = [
     },
     {
       question: '1 ばん',
-      image: require('../../assets/readingimages/audioimages/audioimage8.png'),
+      image: require('../assets/audioimages/audioimage8.png'),
       audio: 'n4q16.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
-        { id: 1, text: '食べものの 店が たくさん あるから' },
-        { id: 2, text: 'まつりが あって にぎやかだから' },
-        { id: 3, text: 'ふねの 上で さくらが 見られるから' },
-        { id: 4, text: '会社から あるいて 行けるから' },
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '2 ばん',
+      image: require('../assets/audioimages/audioimage9.png'),
+      audio: 'n4q17.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '3 ばん',
+      image: require('../assets/audioimages/audioimage10.png'),
+      audio: 'n4q18.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question: '4 ばん',
+      image: require('../assets/audioimages/audioimage11.png'),
+      audio: 'n4q19.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
       ],
       correctAnswer: 3,
+    },
+    {
+      question: '5 ばん',
+      image: require('../assets/audioimages/audioimage12.png'),
+      audio: 'n4q20.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '1 ばん',
+      audio: 'n4q21.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question: '2 ばん',
+      audio: 'n4q22.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: '3 ばん',
+      audio: 'n4q23.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: '4 ばん',
+      audio: 'n4q24.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question: '5 ばん',
+      audio: 'n4q25.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '6 ばん',
+      audio: 'n4q26.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: '7 ばん',
+      audio: 'n4q27.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 2,
+    },
+    {
+      question: '8 ばん',
+      audio: 'n4q28.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      options: [
+        { id: 1, text: '1' },
+        { id: 2, text: '2' },
+        { id: 3, text: '3' },
+      ],
+      correctAnswer: 1,
     },
 ];
   
