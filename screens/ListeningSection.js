@@ -210,7 +210,7 @@ if (!showQuiz) {
           }}
         />
         {/* Text Below Icon */}
-        <Text style={styles.listeningText}>Jlpt 5 聴解</Text>
+        <Text style={styles.listeningText}>Jlpt 4 聴解</Text>
       </View>
     </View>
   );
