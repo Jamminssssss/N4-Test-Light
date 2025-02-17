@@ -366,11 +366,4 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     resizeMode: 'contain',
   },
-  nextButton: {
-    marginTop: 20,
-    padding: 15,
-    backgroundColor: '#2196F3',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
 });

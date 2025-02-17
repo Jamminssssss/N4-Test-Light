@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReadingSection from './screens/ReadingSection';
 import ListeningSection from './screens/ListeningSection';
+import SplashScreen from 'react-native-splash-screen';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreAllLogs(true); // 모든 경고 메시지 숨김
@@ -14,6 +15,14 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
+  
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, []);
+  
   return (
     <NavigationContainer>
       <Tab.Navigator
