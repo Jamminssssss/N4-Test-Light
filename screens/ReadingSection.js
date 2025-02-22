@@ -23,11 +23,13 @@ export default function ReadingSection({ navigation }) {
   const [showNextButton, setShowNextButton] = useState(false);
   const [db, setDb] = useState(null);  // State for database instance
   const [showImageModal, setShowImageModal] = useState(false);
-
-
   const currentQuestion = questions[currentQuestionIndex];
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
+  const [correctCount, setCorrectCount] = useState(0);
+  const [wrongCount, setWrongCount] = useState(0);
+  const [showResultModal, setShowResultModal] = useState(false);
+
 
   // Initialize SQLite database and load progress
   useEffect(() => {
@@ -69,11 +71,17 @@ export default function ReadingSection({ navigation }) {
     setSelectedAnswer(answerIndex);
     setShowNextButton(true);
 
+    if (answerIndex === currentQuestion.correctAnswer) {
+      setCorrectCount((prev) => prev + 1);
+    } else {
+      setWrongCount((prev) => prev + 1);
+    }
+    
     if (db) {
       db.transaction(tx => {
         tx.executeSql(
           'REPLACE INTO progress (id, currentQuestionIndex, selectedAnswer) VALUES (1, ?, ?)',
-          [currentQuestionIndex, answerIndex, 1]
+          [currentQuestionIndex, answerIndex]
         );
       });
     }
@@ -95,7 +103,7 @@ export default function ReadingSection({ navigation }) {
         });
       }
     } else {
-      alert('おめでとうございます、問題を完了しました。');
+      setShowResultModal(true); // 결과 모달 표시
     }
   };
 
@@ -105,12 +113,18 @@ export default function ReadingSection({ navigation }) {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setShowNextButton(false);
+    setCorrectCount(0);
+    setWrongCount(0);
 
     if (db) {
       db.transaction(tx => {
         tx.executeSql('DELETE FROM progress WHERE id = 1');
       });
     }
+    // 하단 탭 다시 활성화
+    navigation.setOptions({
+      tabBarStyle: { display: 'flex' },
+    });
   };
 
   // Update navigation options based on quiz state
@@ -118,6 +132,7 @@ export default function ReadingSection({ navigation }) {
     if (showQuiz) {
       navigation.setOptions({
         headerShown: true,
+        tabBarStyle: { display: 'none' }, // 하단 탭 숨기기
         headerTitle: '',
         headerLeft: () => (
           <TouchableOpacity
@@ -126,13 +141,14 @@ export default function ReadingSection({ navigation }) {
             }}
             style={styles.closeButton}
           >
-            <Ionicons name="close-outline" size={24} color="black" /> {/* Close icon using Ionicons */}
+            <Ionicons name="close-outline" size={24} color="black" /> 
           </TouchableOpacity>
         ),
       });
     } else {
       navigation.setOptions({
         headerShown: false,
+        tabBarStyle: { display: 'flex' }, // 하단 탭 다시 보이기
       });
     }
   }, [navigation, showQuiz]);
@@ -177,7 +193,38 @@ export default function ReadingSection({ navigation }) {
     </Modal>
   );
 
-
+  const ResultModal = () => {
+    const totalQuestions = correctCount + wrongCount;
+    const accuracy = totalQuestions > 0 ? ((correctCount / totalQuestions) * 100).toFixed(2) : 0;
+  
+    return (
+      <Modal
+        transparent={true}
+        visible={showResultModal}
+        onRequestClose={() => setShowResultModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.resultBox}>
+            <Text style={styles.resultTitle}>クイズ結果</Text>
+            <Text style={styles.resultText}>✔️ 正解数: {correctCount}</Text>
+            <Text style={styles.resultText}>❌ 不正解数: {wrongCount}</Text>
+            <Text style={styles.resultText}>📊 正答率: {accuracy}%</Text>
+  
+            <TouchableOpacity
+              style={styles.restartButton}
+              onPress={() => {
+                resetQuizState();
+                setShowResultModal(false);
+              }}
+            >
+              <Text style={styles.restartButtonText}>再挑戦</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+  
   // Show quiz or button to start quiz
   if (!showQuiz) {
     return (
@@ -189,7 +236,7 @@ export default function ReadingSection({ navigation }) {
             color="black" // Icon color
             onPress={() => setShowQuiz(true)} // Handle press to show the quiz
           />
-          <Text style={styles.text}>Jlpt 4 言語知識,読解</Text> {/* Additional text */}
+          <Text style={styles.text}>Jlpt 4 言語知識,読解</Text> 
         </View>
       </View>
     );
@@ -247,6 +294,7 @@ export default function ReadingSection({ navigation }) {
         </View>
       </ScrollView>
       <ImageModal />
+      <ResultModal />
     </View>
   );
 }
@@ -273,6 +321,7 @@ const styles = StyleSheet.create({
   question: {
     fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   questionImage: {
     width: '100%',
@@ -379,5 +428,33 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 12,
     color: 'black',
+  },
+  resultBox: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 12,
+    alignItems: 'center',
+    width: '80%',
+  },
+  resultTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  resultText: {
+    fontSize: 18,
+    marginVertical: 5,
+  },
+  restartButton: {
+    marginTop: 20,
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  restartButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
 import SQLite from 'react-native-sqlite-storage';
@@ -17,7 +17,10 @@ export default function ListeningSection({ navigation }) {
   const [soundInstance, setSoundInstance] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [db, setDb] = useState(null);  // Database instance
-
+  const [correctCount, setCorrectCount] = useState(0);
+  const [wrongCount, setWrongCount] = useState(0);
+  const [showResultModal, setShowResultModal] = useState(false);
+ 
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -70,6 +73,12 @@ export default function ListeningSection({ navigation }) {
     setSelectedAnswer(answerIndex);
     setShowNextButton(true);
    
+    if (answerIndex === currentQuestion.correctAnswer) {
+      setCorrectCount((prev) => prev + 1);
+    } else {
+      setWrongCount((prev) => prev + 1);
+    }
+
     if (db) {
       db.transaction(tx => {
         tx.executeSql(
@@ -86,7 +95,8 @@ export default function ListeningSection({ navigation }) {
       setSelectedAnswer(null);
       setShowNextButton(false);
       stopAndReleaseAudio();
-    
+      
+      
       if (db) {
         db.transaction(tx => {
           tx.executeSql(
@@ -96,8 +106,7 @@ export default function ListeningSection({ navigation }) {
         });
       }
     } else {
-      alert('おめでとうございます、問題を完了しました。');
-      setShowNextButton(false);
+      setShowResultModal(true); // 결과 모달 표시
     }
   };
 
@@ -107,28 +116,21 @@ export default function ListeningSection({ navigation }) {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setShowNextButton(false);
+    setCorrectCount(0);
+    setWrongCount(0);
     
     if (db) {
       db.transaction(tx => {
         tx.executeSql('DELETE FROM progress WHERE id = 1');
       });
     }
+   // 하단 탭 다시 활성화
+   navigation.setOptions({
+    tabBarStyle: { display: 'flex' },
+  });
   };
 
-  const handleStartAgain = () => {
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
-    setShowNextButton(true);
-  
-    if (db) {
-      db.transaction(tx => {
-        tx.executeSql('DELETE FROM progress WHERE id = 1');
-      });
-    }
-  
-    stopAndReleaseAudio();
-  };
-  
+
   
   const restartAudio = () => {
     stopAndReleaseAudio();
@@ -179,6 +181,7 @@ export default function ListeningSection({ navigation }) {
     if (showQuiz) {
       navigation.setOptions({
         headerShown: true,
+        tabBarStyle: { display: 'none' }, // 하단 탭 숨기기
         headerTitle: '',
         headerLeft: () => (
           <TouchableOpacity
@@ -192,10 +195,42 @@ export default function ListeningSection({ navigation }) {
     } else {
       navigation.setOptions({
         headerShown: false,
+        tabBarStyle: { display: 'flex' }, // 하단 탭 다시 보이기
       });
     }
   }, [navigation, showQuiz]);
 
+const ResultModal = () => {
+    const totalQuestions = correctCount + wrongCount;
+    const accuracy = totalQuestions > 0 ? ((correctCount / totalQuestions) * 100).toFixed(2) : 0;
+  
+    return (
+      <Modal
+        transparent={true}
+        visible={showResultModal}
+        onRequestClose={() => setShowResultModal(false)}
+      >
+        <View style={styles.resultContainer}>
+          <View style={styles.resultBox}>
+            <Text style={styles.resultTitle}>クイズ結果</Text>
+            <Text style={styles.resultText}>✔️ 正解数: {correctCount}</Text>
+            <Text style={styles.resultText}>❌ 不正解数: {wrongCount}</Text>
+            <Text style={styles.resultText}>📊 正答率: {accuracy}%</Text>
+  
+            <TouchableOpacity
+              style={styles.restartButton}
+              onPress={() => {
+                resetQuizState();
+                setShowResultModal(false);
+              }}
+            >
+              <Text style={styles.restartButtonText}>再挑戦</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
   
 if (!showQuiz) {
   return (
@@ -209,7 +244,6 @@ if (!showQuiz) {
             setShowQuiz(true);
           }}
         />
-        {/* Text Below Icon */}
         <Text style={styles.listeningText}>Jlpt 4 聴解</Text>
       </View>
     </View>
@@ -217,14 +251,13 @@ if (!showQuiz) {
 }
 
   return (
+    <>
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      {/* Display the question text */}
       <Text style={styles.questionText}>{currentQuestion.question}</Text>
       {currentQuestion.image && (
         <Image source={currentQuestion.image} style={styles.questionImage} />
       )}
       <View style={styles.buttonContainer}>
-        {/* Play/Stop Button */}
         <TouchableOpacity onPress={togglePlayPause} style={styles.audioButton}>
           <Ionicons
             name={isPlaying ? 'stop' : 'play'} // 'stop' icon for stopping, 'play' for playing
@@ -233,7 +266,6 @@ if (!showQuiz) {
           />
         </TouchableOpacity>
   
-        {/* Restart Button */}
         <TouchableOpacity onPress={restartAudio} style={styles.audioButton}>
           <Ionicons
             name="repeat" // 'repeat' icon for restarting the audio
@@ -270,6 +302,8 @@ if (!showQuiz) {
         )}
       </View>
     </ScrollView>
+    <ResultModal />
+    </>
   );  
 }  
 
@@ -365,5 +399,39 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     resizeMode: 'contain',
+  },
+  resultContainer: {
+    flex: 1, // 전체 화면 사용
+    justifyContent: 'center', // 수직 중앙 정렬
+    alignItems: 'center', // 수평 중앙 정렬
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // 어두운 배경 (선택 사항)
+  },
+  resultBox: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 12,
+    alignItems: 'center',
+    width: '80%',
+  },
+  resultTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  resultText: {
+    fontSize: 18,
+    marginVertical: 5,
+  },
+  restartButton: {
+    marginTop: 20,
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  restartButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
