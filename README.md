@@ -1,5 +1,17 @@
 <<<<<<< HEAD
 # N4-Test-Light
+
+#App features and introduction
+
+This is an app that allows you to test the Japanese Language Proficiency Test JLPT N5.
+
+Provides reading questions submitted to the exam.
+
+Provides listening questions to be submitted to the exam.
+
+If you touch an incorrect answer, you'll see a red view and a green view for the correct answer.
+
+
 N4 Test App
 =======
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
