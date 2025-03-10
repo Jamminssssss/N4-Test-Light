@@ -9,7 +9,7 @@
 
 #App features and introduction
 
-This is an app that allows you to test the Japanese Language Proficiency Test JLPT N5.
+This is an app that allows you to test the Japanese Language Proficiency Test JLPT N4.
 
 Provides reading questions submitted to the exam.
 
