@@ -1,5 +1,11 @@
-<<<<<<< HEAD
 # N4-Test-Light
+  <img src="https://github.com/user-attachments/assets/4577022c-5a41-4d55-a1b3-789feac50fcf" width="200">
+  <img src="https://github.com/user-attachments/assets/73d48145-4ce6-44d1-adf8-02f39bd363ca" width="200">
+  
+  <br />
+  
+  <img src="https://github.com/user-attachments/assets/1cbecae7-b4ee-4e12-b42b-82ea33ce8716" width="200">
+  <img src="https://github.com/user-attachments/assets/8f1f2419-ee89-4584-9a59-cffde4d2d275" width="200">
 
 #App features and introduction
 
@@ -111,4 +117,4 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
->>>>>>> 4074ee6 (Initial commit)
+
