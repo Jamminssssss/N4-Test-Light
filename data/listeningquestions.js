@@ -95,8 +95,8 @@ const listeningQuestions = [
       correctAnswer: 1,
     },
     {
-      question: '1 ばん',
-      audio: 'n4q9.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '9 ばん',
+      audio: 'n4q9.mp3',
       options: [
         { id: 1, text: 'うみの ちかくで しょくじした' },
         { id: 2, text: '山に のぼった' },
@@ -106,8 +106,8 @@ const listeningQuestions = [
       correctAnswer: 1,
     },
     {
-      question: '2 ばん',
-      audio: 'n4q10.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '10 ばん',
+      audio: 'n4q10.mp3',
       options: [
         { id: 1, text: 'ジュース' },
         { id: 2, text: 'アイスクリーム' },
@@ -117,18 +117,18 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '3 ばん',
-      audio: 'n4q11.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '11 ばん',
+      audio: 'n4q11.mp3',
       options: [
         { id: 1, text: '山本さんが きょうしつに いるとき' },
         { id: 2, text: '山本さんが きょうしつを 出たとき' },
-        { id: 3, text: '山本さんが きょうしつを 出たとき' },
+        { id: 3, text: '山本さんが としょかんに いるとき' },
         { id: 4, text: '山本さんが としょかんを 出たとき' },
       ],
       correctAnswer: 4,
     },
     {
-      question: '4 ばん',
+      question: '12 ばん',
       audio: 'n4q12.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: 'あく 時間が はやく なる' },
@@ -139,7 +139,7 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '5 ばん',
+      question: '13 ばん',
       audio: 'n4q13.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: 'いろいろな ばしょに おいて あること' },
@@ -150,7 +150,7 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '6 ばん',
+      question: '14 ばん',
       audio: 'n4q14.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: '5 時から 5 時半まで' },
@@ -161,7 +161,7 @@ const listeningQuestions = [
       correctAnswer: 4,
     },
     {
-      question: '7 ばん',
+      question: '15 ばん',
       audio: 'n4q15.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
       options: [
         { id: 1, text: '食べものの 店が たくさん あるから' },
@@ -172,9 +172,9 @@ const listeningQuestions = [
       correctAnswer: 3,
     },
     {
-      question: '1 ばん',
+      question: '16 ばん',
       image: require('../assets/audioimages/audioimage8.png'),
-      audio: 'n4q16.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      audio: 'n4q16.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -183,9 +183,9 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '2 ばん',
+      question: '17 ばん',
       image: require('../assets/audioimages/audioimage9.png'),
-      audio: 'n4q17.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      audio: 'n4q17.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -194,9 +194,9 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '3 ばん',
+      question: '18 ばん',
       image: require('../assets/audioimages/audioimage10.png'),
-      audio: 'n4q18.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      audio: 'n4q18.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -205,9 +205,9 @@ const listeningQuestions = [
       correctAnswer: 1,
     },
     {
-      question: '4 ばん',
+      question: '19 ばん',
       image: require('../assets/audioimages/audioimage11.png'),
-      audio: 'n4q19.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      audio: 'n4q19.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -216,9 +216,9 @@ const listeningQuestions = [
       correctAnswer: 3,
     },
     {
-      question: '5 ばん',
+      question: '20 ばん',
       image: require('../assets/audioimages/audioimage12.png'),
-      audio: 'n4q20.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      audio: 'n4q20.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -227,8 +227,8 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '1 ばん',
-      audio: 'n4q21.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '21 ばん',
+      audio: 'n4q21.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -237,8 +237,8 @@ const listeningQuestions = [
       correctAnswer: 1,
     },
     {
-      question: '2 ばん',
-      audio: 'n4q22.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '22 ばん',
+      audio: 'n4q22.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -247,8 +247,8 @@ const listeningQuestions = [
       correctAnswer: 3,
     },
     {
-      question: '3 ばん',
-      audio: 'n4q23.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '23 ばん',
+      audio: 'n4q23.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -257,8 +257,8 @@ const listeningQuestions = [
       correctAnswer: 3,
     },
     {
-      question: '4 ばん',
-      audio: 'n4q24.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '24 ばん',
+      audio: 'n4q24.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -267,8 +267,8 @@ const listeningQuestions = [
       correctAnswer: 1,
     },
     {
-      question: '5 ばん',
-      audio: 'n4q25.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '25 ばん',
+      audio: 'n4q25.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -277,8 +277,8 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '6 ばん',
-      audio: 'n4q26.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '26 ばん',
+      audio: 'n4q26.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -287,8 +287,8 @@ const listeningQuestions = [
       correctAnswer: 3,
     },
     {
-      question: '7 ばん',
-      audio: 'n4q27.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '27 ばん',
+      audio: 'n4q27.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },
@@ -297,8 +297,8 @@ const listeningQuestions = [
       correctAnswer: 2,
     },
     {
-      question: '8 ばん',
-      audio: 'n4q28.mp3', // Android raw 리소스 파일 이름 (확장자 제외)
+      question: '28 ばん',
+      audio: 'n4q28.mp3',
       options: [
         { id: 1, text: '1' },
         { id: 2, text: '2' },

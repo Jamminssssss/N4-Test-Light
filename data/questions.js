@@ -34,7 +34,7 @@ const questions = [
       options: [
         { id: 1, text: 'とって' },
         { id: 2, text: 'きって' },
-        { id: 3, text: 'あらって ' },
+        { id: 3, text: 'あらって' },
         { id: 4, text: 'もって' },
       ],
       correctAnswer: 2,
@@ -48,16 +48,6 @@ const questions = [
         { id: 4, text: 'いがい' },
       ],
       correctAnswer: 4,
-    },
-    {
-      question:'[  ]の ことばは ひらがなで どう かきますか。\n\nまどから ずっと [雲]を 見て いました。',
-      options: [
-        { id: 1, text: 'ほし' },
-        { id: 2, text: 'ゆき' },
-        { id: 3, text: 'くも' },
-        { id: 4, text: 'そら' },
-      ],
-      correctAnswer: 3,
     },
     {
       question:'[  ]の ことばは ひらがなで どう かきますか。\n\nまどから ずっと [雲]を 見て いました。',
@@ -142,9 +132,9 @@ const questions = [
     {
       question:'[  ]の ことばは どう かきますか。\n\nかさを [かして] ください。',
       options: [
-        { id: 1, text: '貨して' },
+        { id: 1, text: '貸して' },
         { id: 2, text: '資して' },
-        { id: 3, text: '貸して' },
+        { id: 3, text: '借して' },
         { id: 4, text: '質して' },
       ],
       correctAnswer: 1,

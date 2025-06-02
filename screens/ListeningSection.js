@@ -1,11 +1,10 @@
 import React, { useState, useLayoutEffect, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Dimensions, useColorScheme } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Dimensions, useColorScheme, Platform } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
 import SQLite from 'react-native-sqlite-storage';
 import questions from '../data/listeningquestions';
 import { InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
-import { Platform } from 'react-native';
 
 Sound.setCategory('Playback');
 SQLite.enablePromise(true); // Enabling promise API for SQLite
@@ -20,6 +19,9 @@ const interstitialAdUnitId = Platform.select({
 const interstitialAd = InterstitialAd.createForAdRequest(interstitialAdUnitId, {
   requestNonPersonalizedAdsOnly: true,
 });
+
+const { width, height } = Dimensions.get('window');
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
 
 export default function ListeningSection({ navigation }) {
   const colorScheme = useColorScheme(); // Get the device color scheme
@@ -48,23 +50,25 @@ export default function ListeningSection({ navigation }) {
   const [wrongCount, setWrongCount] = useState(0);
   const [showResultModal, setShowResultModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
   const currentQuestion = questions[currentQuestionIndex];
   const [isCooldown, setIsCooldown] = useState(false); // Cooldown state
   const [adLoaded, setAdLoaded] = useState(false); // Add this line
 
-   
-  // 광고 이벤트 설정
    useEffect(() => {
-    const unsubscribe = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
-      setAdLoaded(true);
-    });
+    const onAdLoaded = () => setAdLoaded(true);
+    const onAdClosed = () => {
+      setAdLoaded(false);
+      interstitialAd.load(); // 광고가 닫히면 새로운 광고 로드
+    };
+  
+    const unsubscribeLoaded = interstitialAd.addAdEventListener(AdEventType.LOADED, onAdLoaded);
+    const unsubscribeClosed = interstitialAd.addAdEventListener(AdEventType.CLOSED, onAdClosed);
 
-    interstitialAd.load(); // 광고 로드
+    interstitialAd.load(); // 최초 광고 로드
 
     return () => {
-      unsubscribe();
+      unsubscribeLoaded();
+      unsubscribeClosed();
     };
   }, []);
 
@@ -134,6 +138,7 @@ export default function ListeningSection({ navigation }) {
     }
   };
 
+// Handle the "Next" button press
   const handleNextPress = () => {
     const nextIndex = currentQuestionIndex + 1; // Define nextIndex
     if (currentQuestionIndex < questions.length - 1) {
@@ -142,23 +147,19 @@ export default function ListeningSection({ navigation }) {
       setShowNextButton(false);
       stopAndReleaseAudio();
       
-      
       if (db) {
         db.transaction(tx => {
           tx.executeSql(
             'REPLACE INTO progress (id, currentQuestionIndex, selectedAnswer, showNextButton) VALUES (1, ?, ?, ?)',
-            [currentQuestionIndex + 1, null, 0] // 0 for false in SQLite
+          [nextIndex, null, 0]  // 0은 false를 의미
           );
         });
       }
-       // 10문제마다 전면 광고 표시
-       if ((nextIndex + 1) % 10 === 0 && adLoaded) {
+    if (nextIndex + 1 === 10 && adLoaded) {
         interstitialAd.show();
-        setAdLoaded(false);
-        interstitialAd.load(); // 새로운 광고 로드
       }
     } else {
-      setShowResultModal(true); // 결과 모달 표시
+    setShowResultModal(true);
     }
   };
   
@@ -343,7 +344,7 @@ export default function ListeningSection({ navigation }) {
               setShowQuiz(true);
             }}
           />
-          <Text style={[styles.listeningText, { color: theme.text }]}> Jlpt 4 聴解</Text>
+          <Text style={[styles.listeningText, { color: theme.text }]}>Jlpt 4 聴解</Text>
         </View>
       </View>
     );
@@ -422,11 +423,13 @@ export default function ListeningSection({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: isIPad ? 40 : 20,
   },
   scrollContainer: {
     paddingBottom: 100,
-    paddingHorizontal: 20,
+    paddingHorizontal: isIPad ? 40 : 20,
+    flexGrow: 1,
+    justifyContent: isIPad ? 'center' : 'flex-start',
   },
   buttonCenter: {
     flex: 1,
@@ -434,7 +437,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listeningText: {
-    fontSize: 20,
+    fontSize: isIPad ? 24 : 20,
     marginTop: 10,
     fontWeight: 'bold',
   },
@@ -444,7 +447,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   audioButton: {
-    width: '40%',
+    width: isIPad ? '30%' : '40%',
     padding: 15,
     borderWidth: 1,
     borderRadius: 10,
@@ -452,7 +455,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   audioButtonText: {
-    fontSize: 16,
+    fontSize: isIPad ? 18 : 16,
   },
   optionsContainer: {
     flexDirection: 'column',
@@ -460,18 +463,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 20,
     width: '100%',
+    maxWidth: isIPad ? 800 : '100%',
+    alignSelf: 'center',
   },
   optionButton: {
     flex: 1,
-    padding: 15,
+    padding: isIPad ? 25 : 15,
     borderWidth: 1,
     borderRadius: 10,
-    marginVertical: 5,
+    marginVertical: isIPad ? 10 : 5,
     alignItems: 'center',
-    width: '90%',
+    width: isIPad ? '90%' : '90%',
   },
   optionText: {
-    fontSize: 16,
+    fontSize: isIPad ? 36 : 16,
+    lineHeight: isIPad ? 48 : 24,
   },
   correctOption: {
     backgroundColor: 'green',
@@ -496,25 +502,28 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: 15,
+    top: '50%',
     left: 10,
     zIndex: 10,
     padding: 0,
     margin: 0,
+    transform: [{ translateY: -15 }], // 아이콘 크기의 절반만큼 위로 이동
   },
   questionText: {
-    fontSize: 18,
+    fontSize: isIPad ? 26 : 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 20,
-    paddingHorizontal: 10,
+    marginVertical: isIPad ? 30 : 20,
+    paddingHorizontal: isIPad ? 20 : 10,
+    lineHeight: isIPad ? 36 : 24,
   },
   questionImage: {
-    width: '100%',
-    height: 200,
+    width: isIPad ? width * 0.6 : '100%',
+    height: isIPad ? height * 0.3 : 200,
     marginTop: 10,
     marginBottom: 20,
     resizeMode: 'contain',
+    alignSelf: 'center',
   },
   resultContainer: {
     flex: 1,

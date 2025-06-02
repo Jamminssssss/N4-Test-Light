@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, SafeAreaView, Platform, useColorScheme } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Platform, useColorScheme, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReadingSection from './screens/ReadingSection';
 import ListeningSection from './screens/ListeningSection';
+import JlptVocaSection from './screens/JlptVocaSection';
+import GrammarSection from './screens/GrammarSection';
 import SplashScreen from 'react-native-splash-screen';
 import { BannerAd, BannerAdSize, AppOpenAd, AdEventType } from 'react-native-google-mobile-ads';
 
 const Tab = createBottomTabNavigator();
+
+const { width } = Dimensions.get('window');
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
 
 // 광고 단위 ID 설정 (iOS와 Android에서 다르게 설정)
 const topBannerAdUnitId = Platform.select({
@@ -35,7 +40,7 @@ const TopBanner: React.FC<BannerProps> = ({ adUnitId }) => (
     {adUnitId && (
       <BannerAd
         unitId={adUnitId}
-        size={BannerAdSize.FULL_BANNER}
+        size={isIPad ? BannerAdSize.ANCHORED_ADAPTIVE_BANNER : BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
@@ -49,7 +54,7 @@ const BottomBanner: React.FC<BannerProps> = ({ adUnitId }) => (
     {adUnitId && (
       <BannerAd
         unitId={adUnitId}
-        size={BannerAdSize.FULL_BANNER}
+        size={isIPad ? BannerAdSize.ANCHORED_ADAPTIVE_BANNER : BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
@@ -124,6 +129,25 @@ export default function App() {
                 tabBarLabel: "Listening",
               }}
             />
+              <Tab.Screen
+              name="Voca"
+              component={JlptVocaSection}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="text" color={color} size={24} />
+                ),
+                tabBarLabel: "Voca",
+              }}
+            />
+            <Tab.Screen
+              name="Grammar"
+              component={GrammarSection}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                  <Ionicons name="language" size={size} color={color} />
+                ),
+              }}
+            />
           </Tab.Navigator>
         </NavigationContainer>
       </View>
@@ -153,9 +177,15 @@ const styles = StyleSheet.create({
   topBannerContainer: {
     width: '100%',
     alignItems: 'center',
+    ...(isIPad && {
+      minHeight: 90,
+    }),
   },
   bottomBannerContainer: {
     width: '100%',
     alignItems: 'center',
+    ...(isIPad && {
+      minHeight: 90,
+    }),
   },
 });

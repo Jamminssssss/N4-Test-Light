@@ -1,15 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  StyleSheet, 
-  ScrollView, 
-  Image,
-  Modal,
-  Dimensions,
-  useColorScheme // 다크모드 감지를 위한 hook 추가
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal,Dimensions,useColorScheme, Platform } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SQLite from 'react-native-sqlite-storage';
 import ImageZoom from 'react-native-image-pan-zoom';
@@ -17,7 +7,6 @@ import questions from '../data/questions';
 import UnderlinedQuestion from '../components/UnderlinedQuestion';
 import UnderlinedOption from "../components/UnderlinedOption";
 import { InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
-import { Platform } from 'react-native';
 
 SQLite.enablePromise(true);
 
@@ -32,6 +21,9 @@ const interstitialAd = InterstitialAd.createForAdRequest(interstitialAdUnitId, {
   requestNonPersonalizedAdsOnly: true,
 });
 
+const { width, height } = Dimensions.get('window');
+const isIPad = Platform.OS === 'ios' && Platform.isPad;
+
 export default function ReadingSection({ navigation }) {
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -40,8 +32,6 @@ export default function ReadingSection({ navigation }) {
   const [db, setDb] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
   const currentQuestion = questions[currentQuestionIndex];
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
   const [showResultModal, setShowResultModal] = useState(false);
@@ -66,14 +56,20 @@ export default function ReadingSection({ navigation }) {
 
    // 광고 이벤트 설정
    useEffect(() => {
-    const unsubscribe = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
-      setAdLoaded(true);
-    });
+    const onAdLoaded = () => setAdLoaded(true);
+    const onAdClosed = () => {
+      setAdLoaded(false);
+      interstitialAd.load(); // 광고가 닫히면 새로운 광고 로드
+    };
+  
+    const unsubscribeLoaded = interstitialAd.addAdEventListener(AdEventType.LOADED, onAdLoaded);
+    const unsubscribeClosed = interstitialAd.addAdEventListener(AdEventType.CLOSED, onAdClosed);
 
-    interstitialAd.load(); // 광고 로드
+    interstitialAd.load(); // 최초 광고 로드
 
     return () => {
-      unsubscribe();
+      unsubscribeLoaded();
+      unsubscribeClosed();
     };
   }, []);
   
@@ -140,7 +136,6 @@ export default function ReadingSection({ navigation }) {
       setCurrentQuestionIndex(nextIndex);
       setSelectedAnswer(null);
       setShowNextButton(false);
-
       if (db) {
         db.transaction(tx => {
           tx.executeSql(
@@ -149,15 +144,11 @@ export default function ReadingSection({ navigation }) {
           );
         });
       }
-
-       // 10문제마다 전면 광고 표시
-       if ((nextIndex + 1) % 10 === 0 && adLoaded) {
+    if (nextIndex + 1 === 10 && adLoaded) {
         interstitialAd.show();
-        setAdLoaded(false);
-        interstitialAd.load(); // 새로운 광고 로드
       }
     } else {
-      setShowResultModal(true); // 결과 모달 표시
+    setShowResultModal(true);
     }
   };
 
@@ -221,6 +212,7 @@ export default function ReadingSection({ navigation }) {
       onRequestClose={() => setShowImageModal(false)}
     >
       <View style={[styles.modalContainer, { backgroundColor: theme.modalBackground }]}>
+        {/* 다크모드에 따라 모달 배경색 변경 */}
         <TouchableOpacity
           style={styles.modalCloseButton}
           onPress={() => setShowImageModal(false)}
@@ -229,10 +221,10 @@ export default function ReadingSection({ navigation }) {
         </TouchableOpacity>
         
         <ImageZoom
-          cropWidth={windowWidth}
-          cropHeight={windowHeight}
-          imageWidth={windowWidth}
-          imageHeight={windowHeight * 0.7}
+          cropWidth={width}
+          cropHeight={height}
+          imageWidth={width}
+          imageHeight={height * 0.7}
         >
           <Image
             source={currentQuestion.image}
@@ -265,17 +257,23 @@ export default function ReadingSection({ navigation }) {
         onRequestClose={() => setShowResultModal(false)}
       >
         <View style={[styles.modalContainer, { backgroundColor: theme.modalBackground }]}>
+          {/* 다크모드에 따라 모달 배경색 변경 */}
           <View style={[styles.resultBox, { backgroundColor: theme.cardBackground }]}>
+            {/* 다크모드에 따라 결과 박스 배경색 변경 */}
             <Text style={[styles.resultTitle, { color: theme.textColor }]}>
+              {/* 다크모드에 따라 결과 제목 색상 변경 */}
               クイズ結果
             </Text>
             <Text style={[styles.resultText, { color: theme.textColor }]}>
+              {/* 다크모드에 따라 결과 텍스트 색상 변경 */}
               ✔️ 正解数: {correctCount}
             </Text>
             <Text style={[styles.resultText, { color: theme.textColor }]}>
+              {/* 다크모드에 따라 결과 텍스트 색상 변경 */}
               ❌ 不正解数: {wrongCount}
             </Text>
             <Text style={[styles.resultText, { color: theme.textColor }]}>
+              {/* 다크모드에 따라 결과 텍스트 색상 변경 */}
               📊 正答率: {accuracy}%
             </Text>
   
@@ -298,6 +296,7 @@ export default function ReadingSection({ navigation }) {
   if (!showQuiz) {
     return (
       <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+        {/* 다크모드에 따라 컨테이너 배경색 변경 */}
         <View style={styles.buttonContainer}>
           <Ionicons
             name="book"
@@ -306,6 +305,7 @@ export default function ReadingSection({ navigation }) {
             onPress={() => setShowQuiz(true)}
           />
           <Text style={[styles.text, { color: theme.textColor }]}>
+            {/* 다크모드에 따라 텍스트 색상 변경 */}
             Jlpt 4 言語知識,読解
           </Text> 
         </View>
@@ -318,29 +318,39 @@ export default function ReadingSection({ navigation }) {
     <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       {/* 다크모드에 따라 컨테이너 배경색 변경 */}
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.questionContainer}>
-          <ScrollView 
+        <View style={[styles.questionContainer, { marginBottom: currentQuestion.image ? (isIPad ? 40 : 40) : 10 }]}>
+          <View 
             style={[
               styles.questionScroll, 
               { 
                 backgroundColor: theme.cardBackground,
-                borderColor: theme.borderColor
+                borderColor: theme.borderColor,
               }
             ]} 
-            nestedScrollEnabled={true}
           >
+            <View style={[
+              styles.questionContentWrapper,
+              {
+                justifyContent: currentQuestion.image ? 'flex-start' : 'center',
+                minHeight: currentQuestion.image ? 'auto' : 200
+              }
+            ]}>
             <UnderlinedQuestion 
               question={currentQuestion.question} 
               underlineWords={currentQuestion.underlineWords}
-              textColor={theme.textColor} // UnderlinedQuestion 컴포넌트에 textColor prop 전달 (컴포넌트에 해당 prop 추가 필요)
+                textColor={theme.textColor}
             />
             
             {currentQuestion.image && (
-              <TouchableOpacity onPress={() => setShowImageModal(true)}>
+                <TouchableOpacity 
+                  onPress={() => setShowImageModal(true)}
+                  style={styles.imageContainer}
+                >
                 <Image source={currentQuestion.image} style={styles.questionImage} />
               </TouchableOpacity>
             )}
-          </ScrollView>
+            </View>
+          </View>
         </View>
 
         <View style={[
@@ -350,6 +360,7 @@ export default function ReadingSection({ navigation }) {
             borderColor: theme.borderColor
           }
         ]}>
+          {/* 다크모드에 따라 옵션 컨테이너 배경색과 테두리 색상 변경 */}
           <ScrollView nestedScrollEnabled={true}>
             {currentQuestion.options.map((option) => (
               <TouchableOpacity
@@ -368,6 +379,7 @@ export default function ReadingSection({ navigation }) {
                 disabled={selectedAnswer !== null}
               >
                 <Text style={[styles.optionText, { color: theme.textColor }]}>
+                  {/* 다크모드에 따라 옵션 텍스트 색상 변경 */}
                   <UnderlinedOption 
                     optionText={option.text} 
                     highlightWords={option.highlightWords || []}
@@ -401,58 +413,83 @@ export default function ReadingSection({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    // backgroundColor은 theme.backgroundColor로 동적으로 설정
+    padding: isIPad ? 20 : 20,
   },
   scrollView: {
     paddingBottom: 30,
+    ...(isIPad && {
+      flexGrow: 1,
+      justifyContent: 'center',
+    }),
   },
   questionContainer: {
+    ...(isIPad ? {
+      flex: 0,
+      alignItems: 'center',
+      marginBottom: 20,
+      width: '100%',
+    } : {
+      flex: 1,
     marginBottom: 40,
-    flex: 1,
+    }),
   },
   questionScroll: {
-    padding: 10,
+    padding: isIPad ? 30 : 10,
     borderRadius: 8,
     borderWidth: 1,
-    // borderColor은 theme.borderColor로 동적으로 설정
-    flexShrink: 1,
+    width: isIPad ? '90%' : '100%',
+    ...(isIPad && {
+      alignSelf: 'center',
+    }),
+  },
+  questionContentWrapper: {
+    ...(isIPad ? {
+      alignItems: 'center',
+      paddingVertical: 30,
+    } : {
+      paddingVertical: 10,
+    }),
   },
   question: {
-    fontSize: 20,
+    fontSize: isIPad ? 56 : 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    // color는 theme.textColor로 동적으로 설정
+    lineHeight: isIPad ? 72 : 28,
   },
   questionImage: {
-    width: '100%',
-    height: 350,
-    marginTop: 10,
+    width: isIPad ? width * 0.7 : '100%',
+    height: isIPad ? height * 0.4 : 350,
+    marginTop: isIPad ? 30 : 10,
     resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  noImageSpacing: {
+    marginTop: 0,
   },
   optionsContainer: {
-    marginVertical: 25,
-    maxHeight: 500,
-    padding: 15,
+    marginVertical: isIPad ? 20 : 25,
+    maxHeight: isIPad ? undefined : 500,
+    padding: isIPad ? 25 : 15,
     borderRadius: 8,
     borderWidth: 1,
-    // borderColor은 theme.borderColor로 동적으로 설정
-    // backgroundColor은 theme.cardBackground로 동적으로 설정
+    width: isIPad ? '90%' : '100%',
+    alignSelf: isIPad ? 'center' : 'stretch',
+    ...(isIPad && {
+      flex: 0,
+    }),
   },
   optionButton: {
-    padding: 15,
+    padding: isIPad ? 25 : 15,
     borderWidth: 1,
-    // borderColor은 theme.optionBorderColor로 동적으로 설정
-    marginVertical: 10,
+    marginVertical: isIPad ? 12 : 10,
     borderRadius: 8,
-    // backgroundColor은 theme.cardBackground로 동적으로 설정
     alignItems: 'center',
     justifyContent: 'center',
   },
   optionText: {
-    fontSize: 18,
+    fontSize: isIPad ? 24 : 18,
     textAlign: 'center',
-    // color는 theme.textColor로 동적으로 설정
+    lineHeight: isIPad ? 36 : 24,
   },
   correctOption: {
     backgroundColor: 'green',
@@ -467,11 +504,12 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: 15,
+    top: '50%',
     left: 10,
     zIndex: 10,
     padding: 0,
     margin: 0,
+    transform: [{ translateY: -15 }], // 아이콘 크기의 절반만큼 위로 이동
   },
   nextButton: {
     padding: 20,
@@ -564,5 +602,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  imageContainer: {
+    marginTop: 20,
+    alignItems: 'center',
   },
 });
